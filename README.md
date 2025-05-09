@@ -1,4 +1,4 @@
-README.md
+
 📄 Descrição
 Aplicativo desktop feito em Python com interface gráfica usando CustomTkinter, voltado para o controle de pequenos estoques de forma simples e acessível. Útil para pequenos comércios e autônomos.
 💡 Funcionalidades

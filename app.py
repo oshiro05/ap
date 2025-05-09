@@ -2,19 +2,17 @@ import customtkinter as ctk
 from tkinter import messagebox
 from datetime import datetime
 
-# Dados simulados (em memória)
 usuarios = {"admin": "admin"}
 estoque = []
 
-# Configuração inicial do CustomTkinter
-ctk.set_appearance_mode("dark")  # Tema escuro
-ctk.set_default_color_theme("green")  # Cor verde
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("green")
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Controle de Estoque Acessível")
-        self.geometry("600x500")
+        self.geometry("600x700")
         self.resizable(False, False)
         self.usuario_logado = None
         self.tela_login()
@@ -25,15 +23,11 @@ class App(ctk.CTk):
 
     def tela_login(self):
         self.limpar_tela()
-
         ctk.CTkLabel(self, text="Login", font=("Arial", 24, "bold")).pack(pady=20)
-
         self.login_entry = ctk.CTkEntry(self, placeholder_text="Usuário")
         self.login_entry.pack(pady=10)
-
         self.senha_entry = ctk.CTkEntry(self, placeholder_text="Senha", show="*")
         self.senha_entry.pack(pady=10)
-
         ctk.CTkButton(self, text="Entrar", command=self.verificar_login).pack(pady=20)
 
     def verificar_login(self):
@@ -47,8 +41,6 @@ class App(ctk.CTk):
 
     def menu_principal(self):
         self.limpar_tela()
-
-        # Verifica vencimentos automaticamente
         hoje = datetime.now()
         dias_alerta = 7
         proximos = [p for p in estoque if 0 <= (p["validade"] - hoje).days <= dias_alerta]
@@ -58,6 +50,9 @@ class App(ctk.CTk):
                 [f'- {p["nome"]} (vence em {p["validade"].strftime("%d/%m/%Y")})' for p in proximos]
             )
             messagebox.showwarning("⚠️ Atenção!", f"Produtos próximos ao vencimento:\n\n{lista}")
+            
+        saudacao = f"Bem-vindo(a), {self.usuario_logado}!"
+        ctk.CTkLabel(self, text=saudacao, font=("Arial", 20)).pack(pady=5)    
 
         ctk.CTkLabel(self, text="📦 Menu Principal", font=("Arial", 24, "bold")).pack(pady=30)
 
@@ -74,19 +69,19 @@ class App(ctk.CTk):
             ctk.CTkButton(self, text=texto, width=350, height=40, font=("Arial", 16),
                           command=comando, corner_radius=10).pack(pady=10)
 
+        # ✅ MODIFICAÇÃO AQUI
+        data_atual = datetime.now().strftime("%d/%m/%Y %H:%M")
+        ctk.CTkLabel(self, text=f"Data e hora atual: {data_atual}", font=("Arial", 12)).pack(pady=10)
+
     def cadastrar_produto(self):
         self.limpar_tela()
         ctk.CTkLabel(self, text="Novo Produto", font=("Arial", 24)).pack(pady=20)
-
         nome = ctk.CTkEntry(self, placeholder_text="Nome do Produto")
         nome.pack(pady=10)
-
         quantidade = ctk.CTkEntry(self, placeholder_text="Quantidade")
         quantidade.pack(pady=10)
-
         validade = ctk.CTkEntry(self, placeholder_text="Validade (dd/mm/aaaa)")
         validade.pack(pady=10)
-
         fornecedor = ctk.CTkEntry(self, placeholder_text="Fornecedor")
         fornecedor.pack(pady=10)
 
@@ -166,10 +161,8 @@ class App(ctk.CTk):
     def cadastrar_usuario(self):
         self.limpar_tela()
         ctk.CTkLabel(self, text="Cadastrar Novo Usuário", font=("Arial", 24)).pack(pady=20)
-
         nome = ctk.CTkEntry(self, placeholder_text="Nome do Usuário")
         nome.pack(pady=10)
-
         senha = ctk.CTkEntry(self, placeholder_text="Senha")
         senha.pack(pady=10)
 

@@ -14,7 +14,7 @@ Aplicativo desktop feito em Python com interface gráfica usando CustomTkinter, 
     • pip
 📆 Instalação
     1. Clone este repositório:
-git clone https://gitlab.com/seu-usuario/seu-repositorio.git
+git clone (https://github.com/oshiro05/ap)
 cd seu-repositorio
     2. Instale a dependência principal:
 pip install customtkinter

@@ -12,7 +12,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Controle de Estoque Acessível")
-        self.geometry("600x500")
+        self.geometry("600x700")
         self.resizable(False, False)
         self.usuario_logado = None
         self.tela_login()
@@ -50,6 +50,9 @@ class App(ctk.CTk):
                 [f'- {p["nome"]} (vence em {p["validade"].strftime("%d/%m/%Y")})' for p in proximos]
             )
             messagebox.showwarning("⚠️ Atenção!", f"Produtos próximos ao vencimento:\n\n{lista}")
+            
+        saudacao = f"Bem-vindo(a), {self.usuario_logado}!"
+        ctk.CTkLabel(self, text=saudacao, font=("Arial", 20)).pack(pady=5)    
 
         ctk.CTkLabel(self, text="📦 Menu Principal", font=("Arial", 24, "bold")).pack(pady=30)
 
